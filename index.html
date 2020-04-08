@@ -3,23 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Крестики Нолики</title>
 </head>
 <body>
-    <header>
-        <div id="h" class="blk">Актуальные языки программирования</div>
-        <div class="blk">
-            <details id="menu" open>
-                <summary>Меню</summary>
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
-            </details>
-        </div>
-        <div></div>
-    </header>
-    <main>Тело</main>
-    <footer>Подвал</footer>
+    <canvas id="canvas" width="550" height="350" style="background-color: beige;"></canvas>
+    <script>
+        ctx = canvas.getContext("2d");
+
+        function game(){
+            size = 100;
+
+            ctx.fillRect(size, 0, 1, size*3);
+            ctx.fillRect(size*2, 0, 1, size*3);
+            ctx.fillRect(0, size, size*3, 1);
+            ctx.fillRect(0, size*2, size*3, 1);
+
+            ctx.font = "30px Arial";
+            ctx.fillText("Вы: ", 55, 335);
+            ctx.fillText("Сложность:", 350, 30);
+
+            /*img_X = new Image();
+            img_X.src = "img_X.png";
+            img_O = new Image();
+            img_O.src = "img_O.png";*/
+            
+            //1 = X; 2 = O;
+
+            map = [
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
+            ]
+
+            document.addEventListener("cliсk",
+                function(e){
+                    if(e.clientX<size && e.clientY<size){
+                        alert(e.clientX + " " + e.clientY);
+                        map[0][0] = 1;
+                    }
+                }
+            )
+
+            for(i=0; i<3; i++){
+                for(j=0; j<3; j++){
+                    if(map[i][j] == 1){
+                        ctx.drawImage(img_X, size*j, size*i, size, size);
+                    }
+                    if(map[i][j] == 2){
+                        ctx.drawImage(img_O, size*j, size*i, size, size);
+                    }
+                }
+            }
+            requestAnimationFrame(game);
+        }
+
+        game();
+    </script>
 </body>
 </html>
