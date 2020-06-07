@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        var ctx = canvas.getContext("2d")
+        ctx.beginPath()
+        ctx.moveTo(250, 10)
+        ctx.lineTo(270, 60)
+        ctx.lineTo(320, 60)
+        ctx.lineTo(290, 100)
+        ctx.lineTo(300, 160)
+        ctx.lineTo(250, 130)
+        ctx.lineTo(200, 160)
+        ctx.lineTo(210, 100)
+        ctx.lineTo(180, 60)
+        ctx.lineTo(230, 60)
+        ctx.lineTo(250, 10)
+        ctx.fill()
+    </script>
+</body>
+</html>

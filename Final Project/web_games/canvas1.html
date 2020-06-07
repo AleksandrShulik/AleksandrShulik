@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    canvas{
+        border: 1px solid;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        var ctx = canvas.getContext("2d")
+        var p1 = 50
+        var p2 = 250
+        var p3 = 130
+        var p4 = 125
+        var m = true
+        function move() {
+            ctx.clearRect(0, 0, 500, 500)
+
+            ctx.fillStyle = "blue"
+            ctx.fillRect(0, 490, 500, 25)
+        
+            ctx.fillStyle = "brown"
+            ctx.fillRect(p1, 440, 200, 50)
+            ctx.fillRect(p2, 440, 50, 10)
+
+            ctx.fillStyle = "black"
+            ctx.fillRect(p3, 320, 10, 120)
+
+            ctx.fillStyle = "red"
+            ctx.fillRect(p4, 330, 100, 70)
+
+            if(m == true){
+                p1++
+                p2++
+                p3++
+                p4++
+            }
+
+            if(m == false){
+                p1--
+                p2--
+                p3--
+                p4--
+            }
+
+            if(p2 == 450 || p1 == 0){
+                m = !m
+            }
+
+            requestAnimationFrame(move)
+        }
+        move()
+    </script>
+</body>
+</html>

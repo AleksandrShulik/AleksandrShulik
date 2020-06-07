@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Накликай как можно больше за 3 секунды.</h1>
+    <button onclick="btn()" id="txt" style="padding-top: 10%; padding-bottom: 10%; width: 25%"></button>
+    <script> 
+        z1 = "Нажми когда будешь готов!"
+        z2 = "До старта "
+        y = 0
+        x = 0
+        txt.textContent = z1
+        txt.style.backgroundColor = "rgb(0, 100, 250)"
+        function btn() {
+            if(y == 0){
+                y = 1
+                txt.textContent = z2 + 3
+                txt.style.backgroundColor = "rgb(200, 0 ,0)"
+                setTimeout(() => {txt.textContent = z2 + 2}, 1000)
+                setTimeout(() => {txt.textContent = z2 + 1}, 2000)
+                setTimeout(() => {
+                    y = 2
+                    txt.textContent = x
+                    txt.style.backgroundColor = "rgb(150, 200, 0)"
+                }, 3000);
+                setTimeout(() => {
+                    alert("Вы накликали " + x + " раз за 3 секунды.")
+                    txt.style.backgroundColor = "rgb(0, 100, 250)"
+                    txt.textContent = z1
+                    y = 0
+                    x = 0
+                }, 6000)
+            }
+            if(y == 2){
+                x += 1
+                txt.textContent = x
+            }
+        }
+    </script>
+</body>
+</html>

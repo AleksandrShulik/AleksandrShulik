@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        var ctx = canvas.getContext("2d")
+        ctx.fillStyle = "dodgerblue"
+        ctx.beginPath()
+        ctx.arc(250, 400, 100, 0, Math.PI*2)
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(250, 250, 75, 0, Math.PI*2)
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(250, 140, 50, 0, Math.PI*2)
+        ctx.fill()
+
+        ctx.fillStyle = "black"
+        ctx.beginPath()
+        ctx.moveTo(210, 100)
+        ctx.lineTo(290, 100)
+        ctx.lineTo(270, 40)
+        ctx.lineTo(230, 40)
+        ctx.fill()
+
+        ctx.fillStyle = "orange"
+        ctx.beginPath()
+        ctx.moveTo(250, 160)
+        ctx.lineTo(210, 150)
+        ctx.lineTo(250, 140)
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(230, 125, 5, 0, Math.PI*2)
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.arc(265, 125, 5, 0, Math.PI*2)
+        ctx.fill()
+    </script>
+</body>
+</html>

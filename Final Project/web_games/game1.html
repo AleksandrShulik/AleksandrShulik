@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Покупай и продавай</h1>
+    <div>У вас на счету <span id="money"></span> и <span id="akchii"></span> акций.</div><br>
+    <div>Цена за акцию: <span id="chena"></span></div><br>
+    <button onclick="btn1()">Купить</button>
+    <button onclick="btn2()">Продать</button>
+    <script>
+        x = 500
+        y = 0
+        setInterval(() => {
+            z = Math.round(Math.random()*100)
+            money.textContent = x
+            akchii.textContent = y
+            chena.textContent = z
+        }, 1000);
+        function btn1() {
+            if(x>=z){
+                x -= z
+                y +=1
+                money.textContent = x
+                akchii.textContent = y  
+            }
+        }
+        function btn2() {
+            if(y>0){
+                x += z
+                y -= 1
+                money.textContent = x
+                akchii.textContent = y
+            }
+        }
+    </script>
+</body>
+</html>
