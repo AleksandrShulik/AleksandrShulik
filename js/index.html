@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крестики Нолики</title>
+</head>
+<body>
+    <canvas id="canvas" width="550" height="350" style="background-color: beige;"></canvas>
+    <script>
+        ctx = canvas.getContext("2d");
+        
+        size = 100; constant = 0;
+        map = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+
+        win = 0;    draw = 0;   lose = 0;
+        move = false;   over = false;   restart = false;
+        ease = true;    normal = false; hard = false;
+
+        XorO = "Крестики"
+
+        //1 = X; 2 = O;
+        you = 1;    enemy = 2;
+
+        img_X = new Image();    img_X.src = "img_X.png";
+        img_O = new Image();    img_O.src = "img_O.png";
+        img_G = new Image();    img_G.src = "img_G.png";
+
+        ctx.fillRect(size, 0, 1, size*3);
+        ctx.fillRect(size*2, 0, 1, size*3);
+        ctx.fillRect(0, size, size*3, 1);
+        ctx.fillRect(0, size*2, size*3, 1);
+
+        ctx.font = "30px Arial";
+
+        function paint(){
+            ctx.fillStyle = "beige"
+            ctx.fillRect(50, 305, 200, 40);
+            ctx.fillRect(310, 0, 240, 350);
+
+            ctx.fillStyle = "black"
+            ctx.fillText("Сложность:", 325, 30);
+            ctx.fillText("Easy", 325, 80);
+            ctx.fillText("Normal", 325, 120);
+            ctx.fillText("Hard", 325, 160);
+            ctx.fillText("Вы: "+XorO, 55, 335);
+            ctx.fillText("Победы: "+win, 325, 255);
+            ctx.fillText("Ничьи: "+draw, 325, 295);
+            ctx.fillText("Поражения: "+lose, 325, 335);
+
+            ctx.strokeRect(450, 55, size/4, size/4);
+            ctx.strokeRect(450, 95, size/4, size/4);
+            ctx.strokeRect(450, 135, size/4, size/4);
+            ctx.drawImage(img_G, 450, 55+40*constant, size/4, size/4);
+        }
+        img_G.onload = function(){
+            paint()
+        }
+
+        function game(){
+            for(i=0; i<3; i++){
+                for(j=0; j<3; j++){
+                    if(map[i][j] == 0){
+                        ctx.fillStyle = "beige"
+                        ctx.fillRect(size*j+1, size*i+1, size-2, size-2);
+                    }
+                    if(map[i][j] == 1){
+                        ctx.drawImage(img_X, size*j, size*i, size, size);
+                    }
+                    if(map[i][j] == 2){
+                        ctx.drawImage(img_O, size*j, size*i, size, size);
+                    }
+                }
+            }
+
+            if(((map[0][0]==you && map[0][1]==you && map[0][2]==you)
+            || (map[1][0]==you && map[1][1]==you && map[1][2]==you)
+            || (map[2][0]==you && map[2][1]==you && map[2][2]==you)
+            || (map[0][0]==you && map[1][0]==you && map[2][0]==you)
+            || (map[0][1]==you && map[1][1]==you && map[2][1]==you)
+            || (map[0][2]==you && map[1][2]==you && map[2][2]==you)
+            || (map[0][0]==you && map[1][1]==you && map[2][2]==you)
+            || (map[0][2]==you && map[1][1]==you && map[2][0]==you))
+            && over==false){
+                over = true;
+                move = false;
+                win++;
+                setTimeout(() => {
+                    alert("You Win!");
+                    restart = true;
+                }, 100);
+                paint();
+            }
+            if(((map[0][0]==enemy && map[0][1]==enemy && map[0][2]==enemy)
+            || (map[1][0]==enemy && map[1][1]==enemy && map[1][2]==enemy)
+            || (map[2][0]==enemy && map[2][1]==enemy && map[2][2]==enemy)
+            || (map[0][0]==enemy && map[1][0]==enemy && map[2][0]==enemy)
+            || (map[0][1]==enemy && map[1][1]==enemy && map[2][1]==enemy)
+            || (map[0][2]==enemy && map[1][2]==enemy && map[2][2]==enemy)
+            || (map[0][0]==enemy && map[1][1]==enemy && map[2][2]==enemy)
+            || (map[0][2]==enemy && map[1][1]==enemy && map[2][0]==enemy))
+            && over==false){
+                over = true;
+                move = false;
+                lose++;
+                setTimeout(() => {
+                    alert("You Lose!");
+                    restart = true;
+                }, 100);
+                paint();
+            }
+            if(map[0][0]!=0 && map[0][1]!=0 && map[0][2]!=0
+            && map[1][0]!=0 && map[1][1]!=0 && map[1][2]!=0
+            && map[2][0]!=0 && map[2][1]!=0 && map[2][2]!=0
+            && over==false){
+                over = true;
+                move = false;
+                draw++;
+                setTimeout(() => {
+                    alert("Draw.");
+                    restart = true;
+                }, 100);
+                paint();
+            }
+
+            if(ease==true && move == true){
+                randomX = Math.floor(Math.random()*(2-0+1)-0);
+                randomY = Math.floor(Math.random()*(2-0+1)-0);
+                if(map[1][1]==0){
+                    move = false;
+                    setTimeout(() => {map[1][1] = enemy;}, 100);
+                }
+                else if(map[randomY][randomX]==0){
+                    move = false;
+                    setTimeout(() => {map[randomY][randomX] = enemy;}, 100);
+                }
+            }
+            if(normal==true && move == true){
+                randomX = Math.floor(Math.random()*(2-0+1)-0);
+                randomY = Math.floor(Math.random()*(2-0+1)-0);
+                if(map[1][1]==0){
+                    move = false;
+                    setTimeout(() => {map[1][1] = enemy;}, 100);
+                }
+                else if(map[randomY][randomX]==0){
+                    move = false;
+                    setTimeout(() => {map[randomY][randomX] = enemy;}, 100);
+                }
+            }
+            if(hard==true && move == true){
+                randomX = Math.floor(Math.random()*(2-0+1)-0);
+                randomY = Math.floor(Math.random()*(2-0+1)-0);
+                if(map[1][1]==0){
+                    move = false;
+                    setTimeout(() => {map[1][1] = enemy;}, 100);
+                }
+                else if(map[randomY][randomX]==0){
+                    move = false;
+                    setTimeout(() => {map[randomY][randomX] = enemy;}, 100);
+                }
+            }
+
+            if(restart == true){
+                for(i=0; i<3; i++){
+                    for(j=0; j<3; j++){
+                        map[i][j] = 0;
+                    }
+                }
+
+                if(you==1 && over==true){
+                    you = 2; enemy = 1;
+                    XorO = "Нолики"
+                    move = true;
+                }
+                else if(you==2 && over==true){
+                    you = 1; enemy = 2;
+                    XorO = "Крестики"
+                }
+                
+                restart = false;
+                over = false;
+                progress = 1;
+
+                paint();
+            }
+
+            requestAnimationFrame(game);
+        }
+        game();
+
+        document.addEventListener("click",
+            function(e){
+                if(move == false){
+                    if(e.clientX<size
+                    && e.clientY<size
+                    && map[0][0] == 0){
+                        map[0][0] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size*2 && e.clientX>size
+                    && e.clientY<size
+                    && map[0][1] == 0){
+                        map[0][1] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size*3 && e.clientX>size*2
+                    && e.clientY<size
+                    && map[0][2] == 0){
+                        map[0][2] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size && e.clientY<size*2
+                    && e.clientY>size
+                    && map[1][0] == 0){
+                        map[1][0] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size*2 && e.clientX>size
+                    && e.clientY<size*2 && e.clientY>size
+                    && map[1][1] == 0){
+                        map[1][1] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size*3 && e.clientX>size*2
+                    && e.clientY<size*2 && e.clientY>size
+                    && map[1][2] == 0){
+                        map[1][2] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size && e.clientY<size*3
+                    && e.clientY>size*2
+                    && map[2][0] == 0){
+                        map[2][0] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size*2 && e.clientX>size
+                    && e.clientY<size*3 && e.clientY>size*2
+                    && map[2][1] == 0){
+                        map[2][1] = you;
+                        move = true;
+                    }
+                    if(e.clientX<size*3 && e.clientX>size*2
+                    && e.clientY<size*3 && e.clientY>size*2
+                    && map[2][2] == 0){
+                        map[2][2] = you;
+                        move = true;
+                    }
+
+                    if(e.clientX>460 && e.clientX<460+size/4
+                    && e.clientY>65 && e.clientY<65+size/4){
+                        constant = 0;
+                        ease = true; normal = false; hard = false;
+                        win = 0;    draw = 0;   lose = 0;
+                        restart = true;
+                        move = false;
+                        you = 1; enemy = 2;
+                        XorO = "Крестики"
+                        paint();
+                    }
+                    if(e.clientX>460 && e.clientX<460+size/4
+                    && e.clientY>105 && e.clientY<105+size/4){
+                        constant = 1;
+                        ease = false; normal = true; hard = false;
+                        win = 0;    draw = 0;   lose = 0;
+                        restart = true;
+                        move = false;
+                        you = 1; enemy = 2;
+                        XorO = "Крестики"
+                        paint();
+                    }
+                    if(e.clientX>460 && e.clientX<460+size/4
+                    && e.clientY>145 && e.clientY<145+size/4){
+                        constant = 2;
+                        ease = false; normal = false; hard = true;
+                        win = 0; draw = 0; lose = 0;
+                        restart = true;
+                        move = false;
+                        you = 1; enemy = 2;
+                        XorO = "Крестики"
+                        paint();
+                    }
+                }
+            }
+        )    
+    </script>
+</body>
+</html>
